@@ -23,7 +23,7 @@ public class ProfissaoResource {
         return profissaoService.listar();
     }
 
-    @PUT
+    @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/{id_usu}")
     public Response adicionarFavorito(@PathParam("id_usu") int idUsu, ProfissaoFavoritaDto profissao){
