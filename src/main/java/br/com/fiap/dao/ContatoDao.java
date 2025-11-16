@@ -14,16 +14,20 @@ public class ContatoDao {
     private Connection conexao;
 
     public Contato cadastrar(ContatoCadastroDto contato) throws SQLException {
-        String sql = "insert into contato(mensagem_cont, email_cont, usu_resp_fk)\n" +
-                "values(?,?,?)";
+        String sql = "insert into contato(mensagem_cont, email_cont)\n" +
+                "values(?,?)";
         conexao = ConnectionFactory.obterConexao();
+        UsuarioDao usuarioDao = new UsuarioDao();
         Integer id = null;
+
+        if(usuarioDao.buscarPorEmail(contato.getEmail())){
+            return null;
+        }
 
         try(PreparedStatement ps = conexao.prepareStatement(sql, new String[]{"id_cont"})){
 
             ps.setString(1, contato.getMensagem());
             ps.setString(2, contato.getEmail());
-            ps.setInt(3, contato.getId_usuario());
 
             ps.executeUpdate();
 
