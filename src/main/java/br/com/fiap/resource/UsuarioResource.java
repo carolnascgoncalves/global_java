@@ -67,7 +67,7 @@ public class UsuarioResource {
     @DELETE
     @Path("/deletar-conta/{id_usuario}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deletarUsuario(@PathParam("id_usuario") int idUsu) throws  SQLException{
+    public Response deletarUsuario(@PathParam("id_usuario") int idUsu){
         try{
             if(usuarioService.deletarUsuario(idUsu)){
                 return Response.ok()
