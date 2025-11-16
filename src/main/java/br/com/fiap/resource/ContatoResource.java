@@ -12,7 +12,7 @@ import jakarta.ws.rs.core.Response;
 
 import java.sql.SQLException;
 @ApplicationScoped
-@Path("/usuario/contato")
+@Path("/contato")
 public class ContatoResource {
     @Inject
     ContatoService contatoService;

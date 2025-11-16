@@ -9,7 +9,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 @ApplicationScoped
-@Path("/usuario/faq")
+@Path("/faq")
 public class FaqResorce {
     @Inject
     FaqService faqService;
