@@ -20,4 +20,12 @@ public class ProfissaoService {
     public void adicionarFavorito(int idUsu, ProfissaoFavoritaDto profissao) throws SQLException {
         profissaoDao.adicionarFavorito(idUsu, profissao);
     }
+
+    public boolean deletarFavorito(int idUsu, int idProf) throws  SQLException{
+        return profissaoDao.deletarFavorito(idUsu, idProf);
+    }
+
+    public List<ProfissaoListarDto> listarFavoritos(int idUsu){
+        return profissaoDao.listarFavoritos(idUsu);
+    }
 }

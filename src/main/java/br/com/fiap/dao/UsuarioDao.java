@@ -16,25 +16,6 @@ import java.sql.SQLException;
 public class UsuarioDao {
     private Connection conexao;
 
-    public boolean buscarPorEmail(String email){
-        conexao = ConnectionFactory.obterConexao();
-        PreparedStatement ps = null;
-        try {
-            String sql = "select * from usuario where email_usu = ?";
-            ps = conexao.prepareStatement(sql);
-            ps.setString(1, email);
-
-            ResultSet rs = ps.executeQuery();
-
-            if(rs.next()){
-                return true;
-            }
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-        return false;
-    }
-
     public Usuario buscarPorId(int id){
         Usuario usuario = new Usuario();
         conexao = ConnectionFactory.obterConexao();

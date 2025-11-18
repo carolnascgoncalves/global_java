@@ -23,7 +23,7 @@ public class ProfissaoResource {
         return profissaoService.listar();
     }
 
-    @POST
+    @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/{id_usu}")
     public Response adicionarFavorito(@PathParam("id_usu") int idUsu, ProfissaoFavoritaDto profissao){
@@ -33,5 +33,31 @@ public class ProfissaoResource {
         }catch (SQLException e){
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
+    }
+
+    @DELETE
+    @Path("/desfavoritar/{id_usu}/{id_prof}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deletarFavorito(@PathParam("id_usu") int idUsu, @PathParam("id_prof") int idProf){
+        try{
+            if(profissaoService.deletarFavorito(idUsu, idProf)){
+                return Response.ok()
+                        .entity("{\"mensagem\": \"Profissão desfavoritada com sucesso!\"}")
+                        .build();
+            }
+
+            return Response.status(Response.Status.UNAUTHORIZED)
+                    .entity("{\"mensagem\": \"ID inválido não encontrado\"}")
+                    .build();
+        }catch (SQLException e){
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/favoritos/{id_usu}")
+    public List<ProfissaoListarDto> listarFavoritos(@PathParam("id_usu") int idUsu){
+        return profissaoService.listarFavoritos(idUsu);
     }
 }
