@@ -11,7 +11,7 @@ import jakarta.ws.rs.core.Response;
 @ApplicationScoped
 
 @Path("/faq")
-public class FaqResorce {
+public class FaqResource {
     @Inject
     FaqService faqService;
 
