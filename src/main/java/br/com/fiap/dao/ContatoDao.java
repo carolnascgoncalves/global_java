@@ -17,12 +17,8 @@ public class ContatoDao {
         String sql = "insert into contato(mensagem_cont, email_cont)\n" +
                 "values(?,?)";
         conexao = ConnectionFactory.obterConexao();
-        UsuarioDao usuarioDao = new UsuarioDao();
         Integer id = null;
 
-        if(usuarioDao.buscarPorEmail(contato.getEmail())){
-            return null;
-        }
 
         try(PreparedStatement ps = conexao.prepareStatement(sql, new String[]{"id_cont"})){
 
