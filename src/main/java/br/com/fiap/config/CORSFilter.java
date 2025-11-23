@@ -1,20 +1,25 @@
 package br.com.fiap.config;
 
-import jakarta.ws.rs.container.ContainerRequestContext;
-import jakarta.ws.rs.container.ContainerRequestFilter;
-import jakarta.ws.rs.container.ContainerResponseContext;
-import jakarta.ws.rs.container.ContainerResponseFilter;
+import jakarta.ws.rs.container.*;
+import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.Provider;
-
 import java.io.IOException;
 
 @Provider
-public class CORSFilter implements ContainerResponseFilter {
+public class CORSFilter implements ContainerRequestFilter, ContainerResponseFilter {
+
     @Override
-    public void filter(ContainerRequestContext containerRequestContext, ContainerResponseContext containerResponseContext) throws IOException {
-        containerResponseContext.getHeaders().add("Access-Control-Allow-Origin", "*");
-        containerResponseContext.getHeaders().add("Access-Control-Allow-Headers", "origin, content-type, accept, authorization");
-        containerResponseContext.getHeaders().add("Access-Control-Allow-Credentials", "true");
-        containerResponseContext.getHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+    public void filter(ContainerRequestContext request) throws IOException {
+        if (request.getMethod().equalsIgnoreCase("OPTIONS")) {
+            request.abortWith(Response.ok().build());
+        }
+    }
+
+    @Override
+    public void filter(ContainerRequestContext request, ContainerResponseContext response) throws IOException {
+        response.getHeaders().add("Access-Control-Allow-Origin", "*");
+        response.getHeaders().add("Access-Control-Allow-Headers", "origin, content-type, accept, authorization");
+        response.getHeaders().add("Access-Control-Allow-Credentials", "true");
+        response.getHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
     }
 }
